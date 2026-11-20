@@ -20,6 +20,7 @@ const nav = [['about', 'About'], ['experience', 'Experience'], ['projects', 'Pro
   <link rel="icon" href={`data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23c8102e'/><text x='50' y='68' font-size='52' font-family='sans-serif' font-weight='600' fill='white' text-anchor='middle'>DL</text></svg>`} />
 </head>
 <body>
+  <div class="pane" aria-hidden="true"></div>
   <div class="spotlight" aria-hidden="true"></div>
   <a class="skip" href="#content">Skip to content</a>
 
@@ -139,25 +140,23 @@ const nav = [['about', 'About'], ['experience', 'Experience'], ['projects', 'Pro
     --bg: #18191d; --fg: #ececee; --muted: #93939b; --faint: #5c5c64; --line: #2a2b31;
     --card: rgba(255, 255, 255, .045); --accent: #ff4757; --chip: rgba(255, 71, 87, .1); --glow: rgba(200, 16, 46, .1);
     --halo: rgba(255, 255, 255, .085); --vignette: rgba(0, 0, 0, .55);
-    --panel: rgba(46, 24, 29, .42); --panel-edge: rgba(255, 255, 255, .09); --sheen: rgba(255, 255, 255, .07); --shadow: 0 24px 48px -16px rgba(0, 0, 0, .8), 0 2px 6px rgba(0, 0, 0, .4); --grain: .12;
+    --panel: rgba(46, 24, 29, .42); --panel-edge: rgba(255, 255, 255, .09); --sheen: rgba(255, 255, 255, .07); --shadow: 0 24px 48px -16px rgba(0, 0, 0, .8), 0 2px 6px rgba(0, 0, 0, .4); --pane: rgba(255, 255, 255, .025); --streak: rgba(255, 255, 255, .045);
     color-scheme: dark;
   }
   [data-theme='light'] {
     --bg: #ececea; --fg: #18181b; --muted: #5a5a61; --faint: #9a9aa1; --line: #dcdcd9;
     --card: rgba(0, 0, 0, .035); --accent: #c8102e; --chip: rgba(200, 16, 46, .08); --glow: rgba(200, 16, 46, .06);
     --halo: rgba(255, 255, 255, .85); --vignette: rgba(0, 0, 0, .08);
-    --panel: rgba(255, 255, 255, .5); --panel-edge: rgba(255, 255, 255, .8); --sheen: rgba(255, 255, 255, .6); --shadow: 0 24px 48px -16px rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .06); --grain: .08;
+    --panel: rgba(255, 255, 255, .5); --panel-edge: rgba(255, 255, 255, .8); --sheen: rgba(255, 255, 255, .6); --shadow: 0 24px 48px -16px rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .06); --pane: rgba(255, 255, 255, .25); --streak: rgba(255, 255, 255, .55);
     color-scheme: light;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
   html { scroll-behavior: smooth; background: var(--bg); }
-  /* Charcoal stage: soft light from above, darker edges, film grain. */
+  /* Charcoal stage: soft light from above, darker edges. */
   html::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
     background:
       radial-gradient(ellipse 70% 55% at 50% -8%, var(--halo), transparent 70%),
       radial-gradient(ellipse 140% 110% at 50% 30%, transparent 45%, var(--vignette) 100%); }
-  html::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: var(--grain);
-    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
   body { position: relative; z-index: 1; background: transparent; color: var(--muted); font: 16px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
   ::selection { background: var(--accent); color: #fff; }
   a { color: var(--fg); text-decoration: none; }
@@ -274,6 +273,14 @@ const nav = [['about', 'About'], ['experience', 'Experience'], ['projects', 'Pro
   /* scroll reveal: only when JS is running, and never for reduced motion */
   .js .reveal { opacity: 0; transform: translateY(14px); transition: opacity .6s ease, transform .6s ease; }
   .js .reveal.in { opacity: 1; transform: none; }
+  /* frosted glass pane over the color: adds a faint tint, diagonal light streaks and a lit top edge */
+  .pane { position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    backdrop-filter: blur(40px) saturate(150%); -webkit-backdrop-filter: blur(40px) saturate(150%);
+    background:
+      linear-gradient(115deg, transparent 22%, var(--streak) 30%, transparent 40%, transparent 58%, var(--streak) 63%, transparent 70%),
+      linear-gradient(180deg, var(--streak), transparent 18%) var(--pane);
+    box-shadow: inset 0 1px 0 var(--streak), inset 0 0 120px rgba(255, 255, 255, .02); }
+
   @media (prefers-reduced-motion: reduce) {
     html { scroll-behavior: auto; }
     .js .reveal { opacity: 1; transform: none; transition: none; }
