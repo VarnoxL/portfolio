@@ -136,9 +136,10 @@ export const projects = [
 
 // Smaller projects, shown as a compact list under the featured ones.
 export const moreProjects = [
-  { name: 'Ball Tracker', year: '2026', blurb: 'Soccer ball and player tracking with YOLO, ByteTrack and a hand-written Kalman filter; detects passes and possession.', tech: ['Python', 'YOLO', 'OpenCV'] },
+  { name: 'Ball Tracker', year: '2026', blurb: 'Soccer ball and player tracking with YOLO, ByteTrack and a hand-written Kalman filter; detects passes and possession.', tech: ['Python', 'YOLO', 'OpenCV'], link: 'https://github.com/VarnoxL/ball-tracker' },
   { name: 'Job Application Tracker', year: '2026', blurb: 'Browser extension that logs an application in one click by reading schema.org JobPosting data off any job board.', tech: ['JavaScript', 'Flask', 'MongoDB', 'Docker'], link: 'https://github.com/VarnoxL/application-tracker' },
   { name: 'Claude Code tooling', year: '2026', blurb: 'Open-source skills and status bars for AI coding agents: grill-me, tutor-mode, context-watch, usage-watch.', tech: ['PowerShell', 'Markdown'], link: 'https://github.com/VarnoxL/grill-me' },
   { name: 'Jobright Discord Bot', year: '2026', blurb: 'Hourly GitHub Action that posts new SWE internships to Discord.', tech: ['Python', 'GitHub Actions'], link: 'https://github.com/VarnoxL/jobright-discord-bot' },
+  { name: 'Cozy Pomodoro', year: '2026', blurb: 'Installable Pomodoro timer with an anime GIF scene, a pop-out mini window, desktop notifications, and generated rain sounds.', tech: ['JavaScript', 'PWA', 'Web Audio'], link: 'https://pomodoro-one-psi.vercel.app' },
   { name: 'RoastMyCode', year: '2026', blurb: 'Hackathon app: paste code, get a score and a funny but useful AI review.', tech: ['React', 'Express', 'OpenAI API'], link: 'https://the-griffins.vercel.app' },
 ];
