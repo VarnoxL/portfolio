@@ -139,14 +139,14 @@ const nav = [['about', 'About'], ['experience', 'Experience'], ['projects', 'Pro
     --bg: #18191d; --fg: #ececee; --muted: #93939b; --faint: #5c5c64; --line: #2a2b31;
     --card: rgba(255, 255, 255, .045); --accent: #ff4757; --chip: rgba(255, 71, 87, .1); --glow: rgba(200, 16, 46, .1);
     --halo: rgba(255, 255, 255, .085); --vignette: rgba(0, 0, 0, .55);
-    --panel: #1f1517; --panel-edge: rgba(255, 71, 87, .14); --shadow: 0 24px 48px -16px rgba(0, 0, 0, .8), 0 2px 6px rgba(0, 0, 0, .4); --grain: .12;
+    --panel: rgba(46, 24, 29, .42); --panel-edge: rgba(255, 255, 255, .09); --sheen: rgba(255, 255, 255, .07); --shadow: 0 24px 48px -16px rgba(0, 0, 0, .8), 0 2px 6px rgba(0, 0, 0, .4); --grain: .12;
     color-scheme: dark;
   }
   [data-theme='light'] {
     --bg: #ececea; --fg: #18181b; --muted: #5a5a61; --faint: #9a9aa1; --line: #dcdcd9;
     --card: rgba(0, 0, 0, .035); --accent: #c8102e; --chip: rgba(200, 16, 46, .08); --glow: rgba(200, 16, 46, .06);
     --halo: rgba(255, 255, 255, .85); --vignette: rgba(0, 0, 0, .08);
-    --panel: #fbfbfa; --panel-edge: rgba(0, 0, 0, .06); --shadow: 0 24px 48px -16px rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .06); --grain: .08;
+    --panel: rgba(255, 255, 255, .5); --panel-edge: rgba(255, 255, 255, .8); --sheen: rgba(255, 255, 255, .6); --shadow: 0 24px 48px -16px rgba(0, 0, 0, .22), 0 2px 6px rgba(0, 0, 0, .06); --grain: .08;
     color-scheme: light;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -192,7 +192,7 @@ const nav = [['about', 'About'], ['experience', 'Experience'], ['projects', 'Pro
   .label { font: 600 12px Inter, sans-serif; letter-spacing: .12em; text-transform: uppercase; color: var(--fg); }
   .contact ul { display: grid; gap: 2px; }
   .contact a { display: flex; align-items: center; gap: 14px; padding: 7px 10px; margin: 0 -10px; border-radius: 8px; color: var(--muted); transition: background .15s, color .15s; }
-  .contact a:hover { background: var(--card); color: var(--accent); }
+  .contact a:hover { background: linear-gradient(135deg, var(--sheen), transparent 60%) var(--card); box-shadow: inset 0 1px 0 var(--sheen); backdrop-filter: blur(12px); color: var(--accent); }
   .contact svg { width: 18px; height: 18px; flex: none; }
   .contact span { display: flex; flex-direction: column; font-size: 13px; line-height: 1.35; min-width: 0; overflow-wrap: anywhere; }
   .contact b { font-weight: 500; font-size: 14px; color: var(--fg); }
@@ -245,7 +245,9 @@ const nav = [['about', 'About'], ['experience', 'Experience'], ['projects', 'Pro
   .stretch::after { content: ''; position: absolute; inset: 0; border-radius: 10px; }
 
   @media (hover: hover) and (min-width: 1024px) {
-    .card:hover, .card:focus-within { background: var(--panel); border-color: var(--panel-edge); box-shadow: var(--shadow); transform: translateY(-2px); }
+    /* frosted glass: translucent tint, blurred backdrop, light catching the top edge */
+    .card:hover, .card:focus-within { background: linear-gradient(135deg, var(--sheen), transparent 45%) var(--panel); border-color: var(--panel-edge);
+      box-shadow: var(--shadow), inset 0 1px 0 var(--sheen); backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); transform: translateY(-2px); }
     .list:hover .card:not(:hover) { opacity: .5; }
   }
 
