@@ -318,11 +318,16 @@ const nav = [['about', 'About'], ['experience', 'Experience'], ['projects', 'Pro
   }, { rootMargin: '0px 0px -8% 0px' });
   document.querySelectorAll('.reveal').forEach((el) => reveal.observe(el));
 
-  // highlight the nav item for the section in the middle of the screen
+  // highlight the last section whose top has passed 40% of the screen; About at the very top
   const links = document.querySelectorAll<HTMLAnchorElement>('[data-nav]');
-  const spy = new IntersectionObserver((entries) => {
-    for (const e of entries) if (e.isIntersecting)
-      links.forEach((a) => a.classList.toggle('active', a.dataset.nav === e.target.id));
-  }, { rootMargin: '-45% 0px -50% 0px' });
-  document.querySelectorAll('main section').forEach((s) => spy.observe(s));
+  const sections = [...document.querySelectorAll<HTMLElement>('main section')];
+  const spy = () => {
+    let id = sections[0].id;
+    for (const s of sections) if (s.getBoundingClientRect().top <= innerHeight * .4) id = s.id;
+    if (innerHeight + scrollY >= document.documentElement.scrollHeight - 2) id = sections.at(-1)!.id;
+    links.forEach((a) => a.classList.toggle('active', a.dataset.nav === id));
+  };
+  addEventListener('scroll', spy, { passive: true });
+  addEventListener('resize', spy);
+  spy();
 </script>
