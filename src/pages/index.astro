@@ -136,18 +136,27 @@ const nav = [['about', 'About'], ['experience', 'Experience'], ['projects', 'Pro
 
 <style is:global>
   :root, [data-theme='dark'] {
-    --bg: #0b0b0d; --fg: #e8e8ea; --muted: #8b8b93; --faint: #55555c; --line: #1f1f24;
-    --card: rgba(255, 255, 255, .035); --accent: #ff4757; --chip: rgba(255, 71, 87, .1); --glow: rgba(200, 16, 46, .13);
+    --bg: #18191d; --fg: #ececee; --muted: #93939b; --faint: #5c5c64; --line: #2a2b31;
+    --card: rgba(255, 255, 255, .045); --accent: #ff4757; --chip: rgba(255, 71, 87, .1); --glow: rgba(200, 16, 46, .1);
+    --halo: rgba(255, 255, 255, .085); --vignette: rgba(0, 0, 0, .55); --grain: .12;
     color-scheme: dark;
   }
   [data-theme='light'] {
-    --bg: #fafaf9; --fg: #18181b; --muted: #5f5f66; --faint: #a1a1a8; --line: #e7e7e5;
-    --card: rgba(0, 0, 0, .03); --accent: #c8102e; --chip: rgba(200, 16, 46, .08); --glow: rgba(200, 16, 46, .07);
+    --bg: #ececea; --fg: #18181b; --muted: #5a5a61; --faint: #9a9aa1; --line: #dcdcd9;
+    --card: rgba(0, 0, 0, .035); --accent: #c8102e; --chip: rgba(200, 16, 46, .08); --glow: rgba(200, 16, 46, .06);
+    --halo: rgba(255, 255, 255, .85); --vignette: rgba(0, 0, 0, .08); --grain: .08;
     color-scheme: light;
   }
   * { box-sizing: border-box; margin: 0; padding: 0; }
-  html { scroll-behavior: smooth; }
-  body { background: var(--bg); color: var(--muted); font: 16px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
+  html { scroll-behavior: smooth; background: var(--bg); }
+  /* Charcoal stage: soft light from above, darker edges, film grain. */
+  html::before { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0;
+    background:
+      radial-gradient(ellipse 70% 55% at 50% -8%, var(--halo), transparent 70%),
+      radial-gradient(ellipse 140% 110% at 50% 30%, transparent 45%, var(--vignette) 100%); }
+  html::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 0; opacity: var(--grain);
+    background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='200' height='200'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='3' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 .5 0 0 0 0 .5 0 0 0 0 .5 0 0 0 1 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+  body { position: relative; z-index: 1; background: transparent; color: var(--muted); font: 16px/1.65 Inter, system-ui, sans-serif; -webkit-font-smoothing: antialiased; transition: background .3s, color .3s; }
   ::selection { background: var(--accent); color: #fff; }
   a { color: var(--fg); text-decoration: none; }
   a:hover { color: var(--accent); }
