@@ -51,7 +51,7 @@ export const experience = [
   },
   {
     org: 'Dometic',
-    role: 'Data Analyst Intern',
+    role: 'Data Science Intern',
     dates: 'Jun 2026 – Aug 2026',
     place: 'Litchfield, IL',
     points: [
